@@ -1,9 +1,12 @@
 .dish {
   border: 1px solid rgba(0, 0, 0, 0.144);
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .dish-img {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
