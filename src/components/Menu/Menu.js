@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardImg,
-  CardImgOverlay,
-  CardTitle,
-  CardBody,
-  CardText,
-} from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle, CardText } from 'reactstrap';
+import DishDetail from '../DishDetail/DishDetail';
+import Comment from '../Comment/Comment';
 import './style.css';
 
 export default class Menu extends Component {
@@ -21,23 +16,18 @@ export default class Menu extends Component {
     this.setState({ dishSelected: dish });
   }
 
-  isSelected(dish) {
+  renderDish(dish) {
+    return <DishDetail dish={dish} />;
+  }
+
+  renderComments(dish) {
     if (dish) {
-      return (
-        <div key={dish.id} className='col-12 m-4'>
-          <Card className='dish'>
-            <CardImg src={dish.image} alt={dish.name} />
-            <CardBody>
-              <CardTitle className='mt-2'>{dish.name}</CardTitle>
-              <CardText>{dish.description}</CardText>
-            </CardBody>
-          </Card>
-        </div>
-      );
+      return <Comment dishComments={dish.comments} />;
     } else {
       return '';
     }
   }
+
   render() {
     const menu = this.props.dishes.map(dish => {
       return (
@@ -56,7 +46,10 @@ export default class Menu extends Component {
     return (
       <div className='container'>
         <div className='row'>{menu}</div>
-        <div className='row'>{this.isSelected(this.state.dishSelected)}</div>
+        <div className='row'>
+          {this.renderDish(this.state.dishSelected)}
+          {this.renderComments(this.state.dishSelected)}
+        </div>
       </div>
     );
   }
