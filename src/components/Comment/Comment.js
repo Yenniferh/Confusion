@@ -6,16 +6,16 @@ export default class Comment extends Component {
     const comments = this.props.dishComments;
     if (comments) {
       const renderComments = comments.map(com => {
-        let d = new Date(com.date);
         return (
           <ul key={com.id} className='list-unstyled text-left'>
             <li>{com.comment}</li>
             <li className='comment-date'>
-              {com.author +
-                ', ' +
-                d.toDateString().substring(4, 10) +
-                ', ' +
-                d.toDateString().substring(11)}
+              {com.author + ', '}
+              {new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: '2-digit',
+              }).format(new Date(Date.parse(com.date)))}
             </li>
           </ul>
         );

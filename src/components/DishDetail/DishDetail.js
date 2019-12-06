@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Card,
   CardImg,
@@ -7,10 +7,10 @@ import {
   CardText,
   CardSubtitle,
 } from 'reactstrap';
+import Comment from '../Comment/Comment';
 
 export default class DishDetail extends Component {
-  render() {
-    const dish = this.props.dish;
+  renderDetails(dish) {
     if (dish) {
       return (
         <div key={dish.id} className='col-12 col-md-5 m-2'>
@@ -23,6 +23,30 @@ export default class DishDetail extends Component {
             </CardBody>
           </Card>
         </div>
+      );
+    }
+  }
+
+  renderComments(dish) {
+    if (dish) {
+      return <Comment dishComments={dish.comments} />;
+    } else {
+      return '';
+    }
+  }
+
+  render() {
+    const dish = this.props.dish;
+    if (dish) {
+      return (
+        <Fragment>
+          <div className='container'>
+            <div className='row'>
+              {this.renderDetails(this.props.dish)}
+              {this.renderComments(this.props.dish)}
+            </div>
+          </div>
+        </Fragment>
       );
     } else {
       return '';
