@@ -6,7 +6,10 @@ import {
   CardBody,
   CardText,
   CardSubtitle,
+  Breadcrumb,
+  BreadcrumbItem,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import Comment from '../Comment/Comment';
 
 function RenderDetails({ dish }) {
@@ -24,13 +27,25 @@ function RenderDetails({ dish }) {
   );
 }
 
-export default function DishDetail({ dish }) {
+export default function DishDetail({ dish, comments }) {
   if (dish) {
     return (
       <div className='container'>
         <div className='row'>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to='/menu'>Menu</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+          </Breadcrumb>
+          <div className='col-12'>
+            <h3>{dish.name}</h3>
+            <hr />
+          </div>
+        </div>
+        <div className='row'>
           <RenderDetails dish={dish} />
-          <Comment dishComments={dish.comments} />
+          <Comment dishComments={comments} />
         </div>
       </div>
     );
