@@ -31,3 +31,13 @@ address {
 .navbar-dark {
   background-color: #512da8;
 }
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-subtitle {
+  font-weight: bold;
+  font-size: 0.992;
+}
