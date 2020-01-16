@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 import {
   Card,
   CardImg,
@@ -10,7 +11,7 @@ import {
   BreadcrumbItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Comment from '../Comment/Comment';
+import CommentForm from '../CommentForm/CommentForm';
 
 function RenderDetails({ dish }) {
   return (
@@ -25,6 +26,28 @@ function RenderDetails({ dish }) {
       </Card>
     </div>
   );
+}
+
+function RenderComments({ comments }) {
+  if (comments) {
+    return comments.map(com => {
+      return (
+        <ul key={com.id} className='list-unstyled text-left'>
+          <li>{com.comment}</li>
+          <li className='comment-date'>
+            {com.author + ', '}
+            {new Intl.DateTimeFormat('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: '2-digit',
+            }).format(new Date(Date.parse(com.date)))}
+          </li>
+        </ul>
+      );
+    });
+  } else {
+    return <div></div>;
+  }
 }
 
 export default function DishDetail({ dish, comments }) {
@@ -45,7 +68,11 @@ export default function DishDetail({ dish, comments }) {
         </div>
         <div className='row'>
           <RenderDetails dish={dish} />
-          <Comment dishComments={comments} />
+          <div className='col-12 col-md-5'>
+            <h4 className='text-left'>Comments</h4>
+            <RenderComments comments={comments} />
+            <CommentForm />
+          </div>
         </div>
       </div>
     );
